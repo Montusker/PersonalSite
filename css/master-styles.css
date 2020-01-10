@@ -1,0 +1,317 @@
+/* -----------Page Styles----------- */
+body, html {
+  background-color: #f0ead6;
+  color: #525252;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+main {
+  text-align: center;
+}
+
+h2, h3, h4 {
+  color: #ea5455;
+
+}
+
+
+hr {
+border-color:#d6dcf0;
+border-style: dotted none none none;
+border-width: 12px;
+height: 50px;
+margin: 100px auto 50px auto;
+width: 125px;
+}
+
+/* -----------NavBar----------- */
+.navbar {
+  position: absolute;
+  width: 100%;
+}
+.center {
+  margin-left: auto;
+}
+
+@media (max-width: 576px) {
+  .navHideItem {
+    display: none;
+  }
+
+  .center {
+    margin-right: auto;
+  }
+}
+
+/* -----------Header----------- */
+.title {
+  font-size: 12vw;
+}
+header {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../images/header3.jpg');
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #EAE7DC;
+  display: grid;
+  font-size: 5vw;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  height: 100vh;
+  text-align: center;
+}
+
+.title-text {
+  border-radius: 5%;
+  grid-column: 2/span 5;
+  grid-row: 3/span 2;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.social-icons {
+  align-self: center;
+  grid-column: 3/span 3;
+  grid-row: 7/-1;
+}
+
+.icon {
+  color: #EAE7DC;
+  font-size: 2rem;
+  margin-right: .3rem;
+}
+
+@media (min-width: 576px) {
+  .icon {
+    font-size: 3.5rem;
+  }
+
+  .title {
+    font-size: 10vw;
+  }
+
+  header {
+    font-size: 6vw;
+  }
+
+  .title-text {
+    grid-column: 2/span 5;
+    grid-row: 3/4;
+    text-align: left;
+  }
+}
+
+@media (min-width: 900px) {
+  .icon {
+    font-size: 5rem;
+  }
+
+  .title {
+    font-size: 8vw;
+  }
+
+  header {
+    font-size: 3vw;
+  }
+}
+
+/* -----------About Me----------- */
+.aboutMe {
+padding: 0 15%;
+
+}
+
+.headerAboutMe{
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+
+}
+.focusesTextContainer {
+
+
+  padding: 100px;
+}
+.hoverHideMe {
+  padding: 20px;
+}
+
+@media (max-width: 768px){
+  .codeText, .fastText, .layoutText, .planText {
+    display: none;
+
+  }
+  .hoverHideMe{
+    display: none;
+  }
+}
+@media (min-width: 768px){
+  .McodeText, .MfastText, .MlayoutText, .MplanText {
+    display: none;
+
+  }
+  .hoverHideMe{
+    padding-bottom: 20px;
+  }
+  .row:hover ~ .hoverHideMe{
+    display:none;
+  }
+  .focusesCodeContainer, .focusesFastContainer, .focusesLayoutContainer, .focusesPlanContainer{
+    display:none;
+  }
+  .focusCode:hover ~ .focusesCodeContainer{
+    display:block;
+  }
+  .focusFast:hover ~ .focusesFastContainer{
+    display:block;
+  }
+  .focusLayout:hover ~ .focusesLayoutContainer{
+    display:inline;
+  }
+  .focusPlan:hover ~ .focusesPlanContainer{
+    display:inline;
+  }
+}
+
+
+
+
+
+/* -----------Blog Advertisement----------- */
+aside {
+  background-color: #e9e0c3;
+  padding: 2% 2%;
+}
+.blogHeader{
+  bottom: 1.5vw;
+  position: relative;
+
+}
+.blogAdvertisement {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  justify-items: center;
+}
+
+.blogAd1 {
+  align-self: center;
+  grid-column: 2/3;
+  width: 48vw;
+}
+.blogAd2 {
+  grid-column: 3/4;
+  width: 48vw;
+
+}
+.card {
+
+  border-radius: 15%;
+
+}
+.card-img-top {
+  border-top-left-radius: 15%;
+  border-top-right-radius: 15%;
+  height:150px;
+}
+.card-title {
+  font-size: 1rem;
+}
+.hide {
+  display: none;
+}
+
+
+
+
+
+
+@media (min-width: 576px){
+  .hide {
+    display: inline-block;
+  }
+  .blogAd1 {
+    width: 40vw;
+  }
+  .blogAd2 {
+    width: 40vw;
+  }
+  .blogAdvertisement {
+    grid-gap: 5vw;
+  }
+  .card-title {
+    font-size: 1.3rem;
+  }
+  .card-text {
+font-size: .7rem;
+  }
+}
+@media (min-width: 900px) {
+  .blogAd1 {
+    width: 30vw;
+  }
+  .blogAd2 {
+    width: 30vw;
+  }
+  .blogAdvertisement {
+    grid-gap: 5vw;
+  }
+  .card-img-top {
+    height:200px;
+  }
+
+
+}
+@media (min-width: 1200px) {
+  .blogAd1 {
+    width: 20vw;
+  }
+  .blogAd2 {
+    width: 20vw;
+  }
+  .blogAdvertisement {
+    grid-gap: 5vw;
+  }
+  .card-img-top {
+    height:200px;
+  }
+  .card-title {
+    font-size: 1.5rem;
+  }
+  .card-text {
+font-size: 1rem;
+  }
+
+}
+@media (min-width: 1800px) {
+  .blogAd1 {
+    width: 15vw;
+  }
+  .blogAd2 {
+    width: 15vw;
+  }
+  .blogAdvertisement {
+    grid-gap: 5vw;
+  }
+  .card-img-top {
+    height:200px;
+  }
+
+
+}
+
+
+/* -----------Projects----------- */
+
+/* -----------Footer----------- */
+footer {
+  background-color: #d6dcf0;
+  padding-bottom: .2%;
+  padding-top: 3%;
+}
+
+.fIcon {
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 0 20px;
+}
