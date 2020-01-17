@@ -1,0 +1,634 @@
+import java.util.Scanner;
+/* Kathrn Yamabe
+ * kathryn.yamabe@bellevuecollege.edu
+ * 6/11/2018
+ * 
+ * This program is to helps with tracking bank accounts, interest rates, net worth and helps 
+ * with tracking how much money people owe you for dinner. The program is password accessible.
+ * With this program you set up the accounts that you have. You can then make deposits and
+ * withdraws from any of the accounts you set up. There is a part that you can see how
+ * much interest you could earn over the years if the account is left untouched. Another part
+ * allows for transferring money account to account. You can also check how much in total you withdraw
+ * from an account. From how much money is in the account you can check your net worth. 
+ * You can also add or delete accounts.
+ * 
+ * The purpose of this program is eventually to turn into an app that can help me keep track of my finances.
+ * 
+ */
+public class myToolBox 
+{
+	public static int[] account;
+	public static int[] newAccount;
+	public static int acc;
+	public static int amount;
+	public static int num;
+	public static int dollars = 0;
+	public static void main(String[] args) 
+	
+	{
+		//new scanner that is used throughout the program
+		Scanner input = new Scanner(System.in);
+		//password method that requires password
+		password(input);
+		//sets up the accounts in the program
+		account(input);
+		//asks for which account to access
+		access(input);
+		//body of the program
+		body(input);
+		input.close();
+	}
+	//This method allows for user input to access the program
+	//Without this anyone would be able to access this program.
+	//The reason for choosing this method because of the need for privacy
+	//when dealing with money.
+	//Sample input 1: 'CSproj34', 'password'
+	//Output: You can gain access to the program
+	//Sample input 2: 'proj34', 'password'
+	//Output: Sorry the password or the username is wrong Please try again. does not allow
+	//access to program
+	public static void password(Scanner input)
+	{
+		for(int i = 0; i < 2;)
+		{	
+			//username: CSproj34
+			//System prompts user to enter username and password
+			//username is case insensitive
+			System.out.println("Please enter your username and password");
+			System.out.print("Username (Case insensitive): ");
+			String username = input.next();
+			if(username.equalsIgnoreCase("CSproj34"))
+			{
+				//if the username is correct sets i to 1
+				i = 1;
+			}
+			else
+			{
+				//i set to 0
+				i = 0;
+			}
+			//password: password
+			//password is case sensitive
+			System.out.print("Password (Case sensitive): ");
+			String password = input.next();
+			if(password.equals("password"))
+			{
+				//if password is correct adds 1 to i
+				//this allows for the incorrect username but correct password
+				//keep the program from continuing
+				i++;
+			}	
+			else
+			{
+				//if the username but the password is incorrect then the program will also
+				//not move on
+				i--;
+			}
+			//if i does not equal 2 then the for loop keeps running
+			//if i equals 2 then the program will move on.
+			if(i != 2)
+			{
+				System.out.println("Sorry the password or the username is wrong. Please try again.");
+				System.out.println();
+			}
+		}
+	}
+	//This method sets of the account that you have and how much money each account has.
+	//The reason I chose this method is so that the user could interact with more than
+	//just one account because it feels more like how you normally have more than one bank account
+	//Sample input 1: '2', '100', '200'
+	//Sample output: 'How many accounts do you have? 2
+	//How much do you have in account 1
+	//100
+	//How much do you have in account 2
+	//200
+	//Sample input: '3', '100', '200', '300'
+	//Sample output: 'How many accounts do you have? 2
+	//How much do you have in account 1
+	//100
+	//How much do you have in account 2
+	//200
+	//How much do you have in account 3
+	//300
+	public static void account(Scanner input)
+	{
+		//prompts user to enter how many accounts they have
+		System.out.println("How many accounts do you have?");
+		num = input.nextInt();
+		//sets up a new array
+		account = new int[num];
+		//for loop sets up each array element
+		for(int i = 0; i < num; i++)
+		{
+			System.out.println("How much do you have in account " + (i + 1));
+			account[i] = input.nextInt();
+		}
+	}
+	//This method allows the user to choose which account they want to interact with
+	//the reason I chose this method is because I wanted to be able to access any account
+	//that I wanted to not in any particular order.
+	//Sample input: 1
+	//Sample output: allows access to array[0] in the array
+	//Sample input: 5
+	//Sample output: allows access to array[4] in the array
+	public static void access(Scanner input)
+	{
+		//prompts user to choose an account to access
+		System.out.print("Which account would you like to access?");
+		for(int j = 1; j < (num + 1); j++)
+		{
+			System.out.print("[" + j + "]");
+		}
+		acc = input.nextInt();
+		acc--;
+		//subtracts 1 from what the user chose because arrays start at 0
+		amount = account[acc];
+	}
+	//This is the body of the program. This is to make the main look cleaner and to check for
+	//any exceptions that the user might enter while in the body of the program.
+	//The reason I chose to add the body is because it cleans up the program making the main
+	//less cluttered.
+	//Sample input 1: '1', 'y', '2', 'n'
+	//Sample output: takes to the deposit method and then the withdraw method and then ends
+	//the program
+	//Sample input 2: '11', '1', 'n'
+	//Sample output: prompts user to try again then takes to the deposit method and then ends
+	//the program
+	public static void body(Scanner input)
+	{
+		//resets the dollars to 0 when starting the body
+		dollars = 0;
+		//allows the program to keep running after taken to a different method
+		for(int k = 0; k < 1;)
+		{	
+			//allows to change accounts
+			int r = 0;
+			while(r < 1)
+			{	
+				//allows user to input an int not within the given range
+				//prompts user to try again.
+				for(int j = 0; j < 1;)
+				{
+					System.out.println("What would you like to do?");
+					System.out.println("1) Make a deposit");
+					System.out.println("2) Make a withdraw");
+					System.out.println("3) Check the interest on current account");
+					System.out.println("4) Check spending");
+					System.out.println("5) Transfer money");
+					System.out.println("6) Check your net worth");
+					System.out.println("7) Add/delete an account");
+					System.out.println("8) Calculate how much friends owe");
+					System.out.println("9) Access a different account");
+					int choice = input.nextInt();
+					if(choice == 1)
+					{
+						deposit(input);
+						j = 1;
+						r = 1;
+					}
+					else if(choice == 2)
+					{
+						withdraw(input);
+						j = 1;
+						r = 1;
+					}
+					else if(choice == 3)
+					{
+						interest(input);
+						j = 1;
+						r = 1;
+					}
+					else if(choice == 4)
+					{
+						spending(input);
+						j = 1;
+						r = 1;
+					}
+					else if(choice == 5)
+					{
+						transfer(input);
+						j = 1;
+						r = 1;
+					}
+					else if(choice == 6)
+					{
+						account[acc] = amount;
+						netWorth(input);
+						j = 1;
+						r = 1;
+					}
+					else if(choice == 7)
+					{
+						accounts(input);
+						j = 1;
+						r = 1;
+					}
+					else if(choice == 8)
+					{
+						friendOwe(input);
+						j = 1;
+						r = 1;
+					}
+					else if(choice == 9)
+					{
+						account[acc] = amount;
+						access(input);
+						j = 1;
+						r = 0;
+					}
+					else
+					{
+						System.out.println("Not a valid input. Please try again.");
+						j = 0;
+						r = 1;
+					}
+				}
+			}
+			//keep the program running or not
+			System.out.print("Would you like to do anything else? (Y/N): ");
+			String end = input.next();
+			//takes the first character of the  string the user enters
+			char[] x = new char[end.length()];
+			for(int l = 0; end.length() > l; l++)
+			{
+				x[l] = end.charAt(l);
+			}
+			//anything with a y keeps it going
+			if(x[0] == 'Y'|| x[0] == 'y')
+			{
+				k = 0;
+			}
+			else
+			{
+				k = 1;
+			}
+			
+		}
+		//when the program is done it closes		
+		System.out.println("Closing...");
+	}
+	//deposits money into the current account
+	//this seemed like a basic method for an accounting like program.
+	//Sample input 1: '100' 'no'
+	//Sample output: adds 100 to the original amount in the account and does not make another deposit.
+	//Sample input 2: '100' 'yes '200'
+	//Sample output: adds 100 to the original amount in the account and makes another deposit
+	//of 200 dollars.
+	public static void deposit(Scanner input)
+	{
+		for(int m = 0; m < 1;)
+		{
+			//prompts user for their deposit amount
+			System.out.print("How much would you like to deposit: ");
+			int dep = input.nextInt();
+			//ads the user input to the original amount
+			amount += dep;
+			//print how much the account not has
+			System.out.println("Your account now has $" + amount + ".");
+			System.out.println("Would you like to make another deposit?");
+			String answer = input.next();
+			//allows to make another deposit
+			if(answer.equalsIgnoreCase("yes"))
+			{
+				m = 0;
+			}
+			else
+			{
+				m = 1;
+			}
+		}
+	}
+	//this allows the user to withdraw from the account that they chose
+	//The reason I chose this is because withdrawing seems like another basic accounting like
+	//method that a program would use.
+	//Sample input 1: '100'
+	//Sample output: withdraw 100 but then would not be able to withdraw again because the
+	//account has no more money
+	//Sample input 2: '100' 'yes' '100'
+	//Sample output: with draw 100 and then withdraw another 100 beucase there are still funds
+	//left in the account after you withdraw.
+	public static void withdraw(Scanner input)
+	{
+		//if the amount does not equal 0 then the method will run
+		if(amount != 0)
+		{
+			//for loop runs as long as there is money in the account
+			for(int m = 0; m < 1;)
+			{
+				//prompts user for withdraw amount
+				System.out.print("How much would you like to withdraw: ");
+				int with = input.nextInt();
+				//adds the withdraw amount to the dollars amount used in another method
+				dollars += with;
+				//if the withdraw amount is less than or equal to the amount
+				if(with <= amount)
+				{
+					//the withdraw is subtracted from the amount
+					amount -= with;
+					//tells user how much moeny they have left
+					System.out.println("Your account now has $" + amount + " left.");
+					//if the amount does not equal 0 then prompts user for another withdraw
+					if(amount != 0)
+					{
+						System.out.println("Would you like to make another withdraw?");
+						String answer = input.next();
+						//if yes then the loop will run again
+						if(answer.equalsIgnoreCase("yes"))
+						{
+							m = 0;
+						}
+						else
+						{
+							m = 1;
+						}
+					}
+					//if the amount already equals 0 then the user is told that no money can be withdrawn.
+					else if(amount == 0)
+					{
+						System.out.println("No more money can be withdrawn at this time.");
+						m = 1;
+					}
+				}
+				//if the amount is less than the withdraw amount then the user is told that 
+				//they do not have enough money.
+				else if(with > amount)
+				{
+					System.out.println("Sorry your account does not have enough money. Enter a different amount.");
+					m = 0;
+				}
+			}
+		}
+		//else the method will tell the user that they have no money to withdraw
+		else 
+		{
+			System.out.println("Sorry your account does not have enough money. You cannot make any withdraws currently.");
+		}
+	}
+	//This method helps calculate the interest over 1, 5, 10, and 15 years if the account
+	//is left untouched
+	//The reason I chose this method because I always find it hard to calculate interest over
+	//more than a couple of years this method helps calculate it quite instantly
+	//Sample input 1: 1.75
+	//Sample output: Your account currently has $100
+	//If left untouched  after 1, 5, 10 or 15 years your account will have:
+	//1 year(s): 101.75 
+	//5 year(s): 109.06 
+	//10 year(s): 118.94 
+	//15 year(s): 129.72 
+	//Sample input 2: 0.5
+	//Your account currently has $100
+	//If left untouched  after 1, 5, 10 or 15 years your account will have:
+	//1 year(s): 100.50 
+	//5 year(s):	102.53 
+	//10 year(s): 105.11 
+	//15 year(s): 107.77 
+	public static void interest(Scanner input)
+	{
+		//prompts user for the interest rate on the bank account
+		System.out.print("What is the interest rate for this account? ");
+		double interest = input.nextDouble();
+		System.out.println("The interest rate for this bank is " + interest + "%");
+		//calculates the interest rate
+		interest = 1 + (interest * 0.01);
+		System.out.println("Your account currently has $" + amount );
+		System.out.println("If left untouched  after 1, 5, 10 or 15 years your account will have:");
+		double p = amount;
+		//for loop runs compounding the interest over the years.
+		for(int i = 1; i < 16; i++)
+		{
+			p = (p * interest);
+			if (i == 1)
+			{
+				System.out.print("1 year(s): ");
+				//rounds to the nearest hundredth and starts a new line
+				System.out.printf("%.2f \n", p);
+			}
+			else if (i == 5)
+			{
+				System.out.print("5 year(s): ");
+				System.out.printf("%.2f \n", p);
+			}
+			else if (i == 10)
+			{
+				System.out.print("10 year(s): ");
+				System.out.printf("%.2f \n", p);
+			}
+			else if (i == 15)
+			{
+				System.out.print("15 year(s): ");
+				System.out.printf("%.2f \n", p);
+			}
+		}
+		
+		
+	}
+	//Allows user to know how much money they have withdrawn from the current account
+	//the reason I chose this method is because I want to know how much in total I have
+	//withdrawn from each account.
+	//Sample input 1: from previous method how much the user has withdrawn in total
+	//Sample output: The user has withdrawn 100 dollars in total which is 50% of the total
+	//Sample input 2: User did not withdraw any money
+	//Sample output: The user has withdrawn 0 dollars which is 0% of this account
+	public static void spending(Scanner input)
+	{
+		//takes the dollars from the withdraw method and tells user how much total was withdrawn
+		System.out.println("You have withdrawn $" + dollars + " from this account");
+		//calculates the percentage in relation to the amount in the account
+		int percent = (dollars*100/(dollars + amount));
+		System.out.println("That is " + percent + "% of this account.");
+	}
+	//This method allows the user to transfer money from one account to another account
+	//The reason I chose this method is becuase I ahve a savings and checking account so
+	//if I wanted to transfer from my savings to my checking then I would ne to transfer
+	//between accounts.
+	//Sample input 1: '100' '2'
+	//Sample output: Subtracts the transfer from the current account and ads the transfer
+	//to account[1]
+	//Sample input 2: '300' '1'
+	//Sample output: Subtracts the transfer from the current account and adds the transfer
+	//to account[0]
+	public static void transfer(Scanner input)
+	{
+		//prompts user for transfer amount
+		System.out.print("How much would you like to transfer? ");
+		int transfer = input.nextInt();
+		//if the transfer is more than the amount in the account
+		if (transfer > amount)
+		{
+			//as long as it is more the while loop will run
+			while(transfer > amount)
+			{
+				//the user will be told that there is not enough funds in the account to make
+				//a transfer
+				System.out.println("There is not enough funds in this account. Choose a different amount");
+				transfer = input.nextInt();
+			}
+		}
+		//prompts user to which account to transfer to
+		System.out.print("Which account would you like to transfer to? ");
+		int change = input.nextInt();
+		//subtracts the transfer from the amount
+		amount -= transfer;
+		//adds the transfer to the chosen account
+		account[change - 1] += transfer;
+		System.out.println("Account [" + change + "] has $" + account[change - 1]);
+		System.out.println("The current account (account [" + num + "]) has $" + amount);
+	}
+	//calculates the net worth of the user
+	//I want to know how much money there is in all the accounts that I add becuase keeping track
+	//of multiple accounts is hard.
+	//Sample input 1: '100' '100'
+	//Sample output: 200
+	//Sample input 2 '100' '200' '300' '400' '500'
+	//sample output: 1500
+	public static void netWorth(Scanner input)
+	{
+		//the sum is currently 0
+		int sum = 0;
+		//for loop adds all of the array elements
+		for(int i = 0; i < num; i++)
+		{
+			int t = account[i];
+			sum = sum + t;
+		}
+		//prints out net worth
+		System.out.println("Your net worth is $" + sum + ".");
+	}
+	//deletes or adds array elements
+	//This is if you don't need an account anymore or if you made a mistake when you fist input the accounts
+	//It also allows for new accounts
+	//Sample input 1: 'delete' '1' '2'
+	//Sample output: deletes account 1 and then replaces the account 1 with account 2 and now there is only 1 account
+	//Sample input 2: 'add' '100'
+	//Sample output: adds an account now there is 3 accounts. The third account has 100 in it.
+	public static void accounts(Scanner input)
+	{
+		//prompts user to choose if they want to add or delete an account
+		System.out.println("Would you like to delete or add an account?");
+		String deleteAdd = input.next();
+		//if the answer is delete
+		if (deleteAdd.equalsIgnoreCase("delete"))
+		{
+			//asks user whcih account to delete
+			System.out.println("Which account would you like to delete?");
+			for(int j = 1; j < (num + 1); j++)
+			{
+				System.out.print("[" + j + "]");
+			}
+			int delete = input.nextInt();
+			//subtracts 1 from num
+			num -= 1;
+			//new amount of accounts set to new num
+			newAccount = new int[num];
+			//tells user which account they deleted
+			System.out.println("You deleted acount #" + delete);
+			//for loop runs until all the old accounts are set into the new array
+			for(int j = 0; j < (num); j++)
+			{
+				System.out.println("Which account is the new account #" + (j + 1));
+				int i = input.nextInt();
+				newAccount[j] = account[i-1];
+				System.out.println("Account " + (j + 1) + " now has $" + newAccount[j]);
+			}
+			//sets the newaccount to the original account after the changes have been made 
+			for (int j = 0; j < (num); j++)
+			{
+				account[j] = newAccount[j];
+			}
+		}
+		//if the user answers add
+		else if(deleteAdd.equalsIgnoreCase("add"))
+		{
+			//prompts user for the amount in the new account
+			System.out.println("How much is in your new account? ");
+			int add = input.nextInt();
+			//adds 1 to num
+			num += 1;
+			newAccount = new int[num];
+			//sets the new account to the old account with an extra element
+			for(int j = 0; j < (num - 1); j++)
+			{
+				newAccount[j] = account[j];
+			}
+			//the new element is set as the user input
+			newAccount[num - 1] = add;
+			//tells user how many accounts they have and how much their new account has
+			System.out.println("You now have " + num + " accounts.");
+			System.out.println("Your new account has $" + newAccount[ num - 1 ]);
+			//sets the account to the newaccount that was just made
+			for (int j = 0; j < (num - 1); j++)
+			{
+				account[j] = newAccount[j];
+			}
+		}
+	}
+	//this method allows the user to calculate how much their friends owe them
+	//This is very useful because sometimes you know how much the meal on the menu is but not how much it was
+	//with tax and tip
+	//Sample input 1: '50' '2' '25'
+	//Sample output:Subtotal: $25.0
+	//Tax: $2.0
+	//Tip: $3.75
+	//Total: $30.75
+	//Friend #1 owes $30.75
+	//Your dinner cost $19.25
+	//Sample input 2: '100' '4' '30' '20' '30'
+	//Sample output:Subtotal: $30.0
+	//Tax: $2.4
+	//Tip: $4.5
+	//Total: $36.9
+	//Friend #1 owes $36.9
+	//How much did person #2's dinner cost? 20
+	//Subtotal: $50.0
+	//Tax: $4.0
+	//Tip: $7.5
+	//Total: $61.5
+	//Friend #2 owes $61.5
+	//How much did person #3's dinner cost? 30
+	//Subtotal: $80.0
+	//Tax: $6.4
+	//Tip: $12.0
+	//Total: $98.4
+	//Friend #3 owes $98.4
+	//Your dinner cost $-96.80
+	public static void friendOwe(Scanner input)
+	{
+		//prompts user for the cost of dinner
+		System.out.print("How much did dinner cost? ");
+		double amount = input.nextDouble(); 
+		//prompts user for the number of people including the user
+		System.out.print("How many people ate(including yourself)? ");
+		int people = input.nextInt();
+		//subtotal is set to 0
+		double subtotal = 0.0;
+		//for loop runs until i = people
+		for(int i = 1; i < people; i++)
+		{
+			//how much did the cost of person is and then prints what they owe
+			System.out.print("How much did person #" + i + "'s dinner cost? " );
+			double personCost = input.nextDouble();
+			subtotal = subtotal + personCost;
+			double tax = subtotal * 0.08;
+			double tip = subtotal * 0.15;
+			double total = subtotal + tax + tip;
+			amount = amount - total;
+			
+			System.out.println("Subtotal: $" + subtotal);
+			System.out.println("Tax: $" + tax);
+			System.out.println("Tip: $" + tip);
+			System.out.println("Total: $" + total);
+			System.out.println("Friend #" + i + " owes $" + total);
+		}
+		//tells the user how much their dinner costs
+		System.out.println("Your dinner cost $" + amount);
+	}
+}
+/* I learned the syntax of Java and have learned a lot of computer science logic. I think
+ * that arrays have been one of the more challenging but extremely helpful parts of 
+ * Java. One of my biggest challenges that I overcame was using the same scanner throughout
+ * the entire program. In my sentinel program I had to use a new scanner for every method but
+ * in this project I was able to use one scanner throughout the entire program. Another large
+ * challenge that I have overcome was the use of arrays in a way that you could copy one over
+ * and create a new one. What I can do to improve is to make my code less redundant. I still
+ * don't thinkt hat my code is as optimized as it could be.
+ */
